@@ -1,13 +1,16 @@
-import { createStore } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import rootReducer from "./reducer";
+import { configureStore } from '@reduxjs/toolkit'
+import filtersSlice from '../components/Filters/filtersSlice'
+import todoSlice from '../components/TodoList/todoSlice'
+console.log('store run')
 
-console.log('store run');
-
-const composeEnhancers = composeWithDevTools();
-const store = createStore(rootReducer, composeEnhancers);
-store.subscribe(()=>{
-    console.log(store.getState());
+const store = configureStore({
+  reducer: {
+    filters: filtersSlice.reducer,
+    todoList: todoSlice.reducer,
+  },
 })
-console.log(store);
-export default store;
+store.subscribe(() => {
+  console.log(store.getState())
+})
+console.log(store)
+export default store
